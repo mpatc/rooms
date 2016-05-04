@@ -42,6 +42,7 @@
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.room._id ? 'Update' : 'Create'}}</button>
+          <button type="button" ui-sref="rooms.list" class="btn btn-warning">Cancel</button>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>
