@@ -6,7 +6,7 @@
     <form name="vm.form.roomForm" class="form-horizontal" ng-submit="vm.save(vm.form.roomForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
-          <label class="control-label" for="name">Name</label>
+          <label class="control-label" for="name">Location</label>
           <input name="name" type="text" ng-model="vm.room.name" id="name" class="form-control" placeholder="Name" required>
           <div ng-messages="vm.form.roomForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Room name is required.</p>
