@@ -12,6 +12,34 @@
             <p class="help-block error-text" ng-message="required">Room name is required.</p>
           </div>
         </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="when">When is it available?</label>
+          <input name="when" type="text" ng-model="vm.room.when" id="when" class="form-control" placeholder="When?" required>
+          <div ng-messages="vm.form.roomForm.when.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Room when is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="rent">How much is Rent?</label>
+          <input name="rent" type="text" ng-model="vm.room.rent" id="rent" class="form-control" placeholder="Rent" required>
+          <div ng-messages="vm.form.roomForm.rent.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Room rent is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="util">How much are Utilites?</label>
+          <input name="util" type="text" ng-model="vm.room.util" id="util" class="form-control" placeholder="Utilities" required>
+          <div ng-messages="vm.form.roomForm.util.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Room utilites is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="other">Other information</label>
+          <input name="other" type="text" ng-model="vm.room.other" id="other" class="form-control" placeholder="Other" required>
+          <div ng-messages="vm.form.roomForm.other.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Room other is required.</p>
+          </div>
+        </div>
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.room._id ? 'Update' : 'Create'}}</button>
         </div>
