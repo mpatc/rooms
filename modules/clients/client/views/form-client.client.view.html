@@ -21,14 +21,14 @@
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="phone">Phone</label>
-          <input name="phone" type="number" ng-model="vm.client.phone" id="phone" class="form-control" placeholder="Name" required>
+          <input name="phone" type="string" ng-model="vm.client.phone" id="phone" class="form-control" placeholder="phone" required>
           <div ng-messages="vm.form.clientForm.phone.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Client phone is required.</p>
           </div>
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="other">Other</label>
-          <input name="other" type="text" ng-model="vm.client.other" id="other" class="form-control" placeholder="Other Info" required>
+          <input name="other" type="text" ng-model="vm.client.other" id="other" class="form-control" placeholder="other" required>
           <div ng-messages="vm.form.clientForm.other.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Client other is required.</p>
           </div>

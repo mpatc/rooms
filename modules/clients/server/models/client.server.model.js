@@ -28,6 +28,12 @@ var ClientSchema = new Schema({
     required: 'Please fill in Client phone',
     trim: true
   },
+  other: {
+    type: String,
+    default: '',
+    required: 'Please fill in Client other',
+    trim: true
+  },
   created: {
     type: Date,
     default: Date.now

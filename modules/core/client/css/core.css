@@ -35,3 +35,12 @@ a:hover .header-profile-image {
 .has-error .help-inline.error-text {
   display: inline;
 }
+.navbar-inverse {
+    background-image: linear-gradient(to bottom, #B6FF80 0%, #42A5B5 100%);
+}
+.navbar-inverse .navbar-brand {
+    color: #315F27;
+}
+.navbar-inverse .navbar-nav {
+    color: #060806;
+}
