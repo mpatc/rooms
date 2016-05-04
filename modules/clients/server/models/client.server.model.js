@@ -16,6 +16,18 @@ var ClientSchema = new Schema({
     required: 'Please fill Client name',
     trim: true
   },
+  email: {
+    type: String,
+    default: '',
+    required: 'Please fill Client email',
+    trim: true
+  },
+  phone: {
+    type: String,
+    default: '',
+    required: 'Please fill in Client phone',
+    trim: true
+  },
   created: {
     type: Date,
     default: Date.now

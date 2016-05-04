@@ -13,6 +13,7 @@ var path = require('path'),
  * Create a Client
  */
 exports.create = function(req, res) {
+  console.log("new client req: ", req.body)
   var client = new Client(req.body);
   client.user = req.user;
 
@@ -80,7 +81,7 @@ exports.delete = function(req, res) {
 /**
  * List of Clients
  */
-exports.list = function(req, res) { 
+exports.list = function(req, res) {
   Client.find().sort('-created').populate('user', 'displayName').exec(function(err, clients) {
     if (err) {
       return res.status(400).send({
