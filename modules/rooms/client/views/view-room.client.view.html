@@ -1,6 +1,12 @@
 <section>
   <div class="page-header">
     <h1 data-ng-bind="vm.room.name"></h1>
+    <ul>
+    <li>Email: <p data-ng-bind="vm.room.when"></p></li>
+    <li>Phone: <p data-ng-bind="vm.room.rent"></p></li>
+    <li>Other: <p data-ng-bind="vm.room.util"></p></li>
+    <li>Other: <p data-ng-bind="vm.room.other"></p></li>
+</ul>
   </div>
   <div class="pull-right"
        data-ng-show="vm.room.isCurrentUserOwner">

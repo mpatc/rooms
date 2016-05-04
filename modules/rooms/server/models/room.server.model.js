@@ -16,6 +16,31 @@ var RoomSchema = new Schema({
     required: 'Please fill Room name',
     trim: true
   },
+  when: {
+    type: String,
+    default: '',
+    required: 'Please fill Room when',
+    trim: true
+  },
+  rent: {
+    type: String,
+    default: '',
+    required: 'Please fill Room rent',
+    trim: true
+  },
+  util: {
+    type: String,
+    default: '',
+    required: 'Please fill Room utilities',
+    trim: true
+  },
+  other: {
+    type: String,
+    default: '',
+    required: 'Please fill Room other',
+    trim: true
+  },
+
   created: {
     type: Date,
     default: Date.now
