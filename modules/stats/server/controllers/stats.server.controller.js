@@ -5,114 +5,113 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Client = mongoose.model('Client'),
+  Stat = mongoose.model('Stat'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a Client
+ * Create a Stat
  */
 exports.create = function(req, res) {
-  console.log('new client req: ', req.body);
-  var client = new Client(req.body);
-  client.user = req.user;
+  var stat = new Stat(req.body);
+  stat.user = req.user;
 
-  client.save(function(err) {
+  stat.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(client);
+      res.jsonp(stat);
     }
   });
 };
 
 /**
- * Show the current Client
+ * Show the current Stat
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var client = req.client ? req.client.toJSON() : {};
+  var stat = req.stat ? req.stat.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  client.isCurrentUserOwner = req.user && client.user && client.user._id.toString() === req.user._id.toString() ? true : false;
+  stat.isCurrentUserOwner = req.user && stat.user && stat.user._id.toString() === req.user._id.toString() ? true : false;
 
-  res.jsonp(client);
+  res.jsonp(stat);
 };
 
 /**
- * Update a Client
+ * Update a Stat
  */
 exports.update = function(req, res) {
-  var client = req.client ;
+  var stat = req.stat ;
 
-  client = _.extend(client , req.body);
+  stat = _.extend(stat , req.body);
 
-  client.save(function(err) {
+  stat.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(client);
+      res.jsonp(stat);
     }
   });
 };
 
 /**
- * Delete an Client
+ * Delete an Stat
  */
 exports.delete = function(req, res) {
-  var client = req.client ;
+  var stat = req.stat ;
 
-  client.remove(function(err) {
+  stat.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(client);
+      res.jsonp(stat);
     }
   });
 };
 
 /**
- * List of Clients
+ * List of Stats
  */
-exports.list = function(req, res) {
-  Client.find().sort('-created').populate('user', 'displayName').exec(function(err, clients) {
+exports.list = function(req, res) { 
+  Stat.find().sort('-created').populate('user', 'displayName').exec(function(err, stats) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(clients);
+      res.jsonp(stats);
     }
   });
 };
 
 /**
- * Client middleware
+ * Stat middleware
  */
-exports.clientByID = function(req, res, next, id) {
+exports.statByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Client is invalid'
+      message: 'Stat is invalid'
     });
   }
 
-  Client.findById(id).populate('user', 'displayName').exec(function (err, client) {
+  Stat.findById(id).populate('user', 'displayName').exec(function (err, stat) {
     if (err) {
       return next(err);
-    } else if (!client) {
+    } else if (!stat) {
       return res.status(404).send({
-        message: 'No Client with that identifier has been found'
+        message: 'No Stat with that identifier has been found'
       });
     }
-    req.client = client;
+    req.stat = stat;
     next();
   });
 };

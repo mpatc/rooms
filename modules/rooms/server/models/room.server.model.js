@@ -40,7 +40,10 @@ var RoomSchema = new Schema({
     required: 'Please fill Room other',
     trim: true
   },
-
+  client: {
+    type: Schema.ObjectId,
+    ref: 'Client'
+  },
   created: {
     type: Date,
     default: Date.now

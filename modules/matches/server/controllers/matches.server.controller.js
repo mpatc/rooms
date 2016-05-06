@@ -5,114 +5,115 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  Client = mongoose.model('Client'),
+  Match = mongoose.model('Match'),
+  Room = mongoose.model('Room'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a Client
+ * Create a Match
  */
 exports.create = function(req, res) {
-  console.log('new client req: ', req.body);
-  var client = new Client(req.body);
-  client.user = req.user;
+  console.log("req: ", req);
+  var match = new Match(req.body);
+  match.user = req.user;
 
-  client.save(function(err) {
+  match.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(client);
+      res.jsonp(match);
     }
   });
 };
 
 /**
- * Show the current Client
+ * Show the current Match
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var client = req.client ? req.client.toJSON() : {};
+  var match = req.match ? req.match.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  client.isCurrentUserOwner = req.user && client.user && client.user._id.toString() === req.user._id.toString() ? true : false;
+  match.isCurrentUserOwner = req.user && match.user && match.user._id.toString() === req.user._id.toString() ? true : false;
 
-  res.jsonp(client);
+  res.jsonp(match);
 };
 
 /**
- * Update a Client
+ * Update a Match
  */
 exports.update = function(req, res) {
-  var client = req.client ;
+  var match = req.match ;
 
-  client = _.extend(client , req.body);
+  match = _.extend(match , req.body);
 
-  client.save(function(err) {
+  match.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(client);
+      res.jsonp(match);
     }
   });
 };
 
 /**
- * Delete an Client
+ * Delete an Match
  */
 exports.delete = function(req, res) {
-  var client = req.client ;
+  var match = req.match ;
 
-  client.remove(function(err) {
+  match.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(client);
+      res.jsonp(match);
     }
   });
 };
 
 /**
- * List of Clients
+ * List of Matches
  */
 exports.list = function(req, res) {
-  Client.find().sort('-created').populate('user', 'displayName').exec(function(err, clients) {
+  Match.find().sort('-created').populate('user room').exec(function(err, matches) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(clients);
+      res.jsonp(matches);
     }
   });
 };
 
 /**
- * Client middleware
+ * Match middleware
  */
-exports.clientByID = function(req, res, next, id) {
+exports.matchByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Client is invalid'
+      message: 'Match is invalid'
     });
   }
 
-  Client.findById(id).populate('user', 'displayName').exec(function (err, client) {
+  Match.findById(id).populate('user', 'displayName').exec(function (err, match) {
     if (err) {
       return next(err);
-    } else if (!client) {
+    } else if (!match) {
       return res.status(404).send({
-        message: 'No Client with that identifier has been found'
+        message: 'No Match with that identifier has been found'
       });
     }
-    req.client = client;
+    req.match = match;
     next();
   });
 };

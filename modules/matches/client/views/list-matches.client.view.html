@@ -1,0 +1,38 @@
+<section>
+  <div class="page-header">
+    <h1>Rooms</h1>
+  </div>
+  <div class="list-group">
+    <a data-ng-repeat="room in vm.rooms"
+       data-ui-sref="rooms.view({ roomId: room._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="room.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="room.user" data-ng-bind="room.user.displayName"></span>
+        <span data-ng-if="!room.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="room.name"></h4>
+    </a>
+  </div>
+    <h1>Matches</h1>
+  </div>
+  <div class="list-group">
+    <a data-ng-repeat="match in vm.matches"
+       data-ui-sref="matches.view({ matchId: match._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="match.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="match.user" data-ng-bind="match.user.displayName"></span>
+        <span data-ng-if="!match.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="match.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.matches.$resolved && !vm.matches.length">
+    No Matches yet, why don't you <a data-ui-sref="matches.create">create one</a>?
+  </div>
+</section>

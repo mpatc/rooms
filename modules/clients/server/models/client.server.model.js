@@ -34,6 +34,10 @@ var ClientSchema = new Schema({
     required: 'Please fill in Client other',
     trim: true
   },
+  room: {
+    type: Schema.ObjectId,
+    ref: 'Room'
+  },
   created: {
     type: Date,
     default: Date.now
